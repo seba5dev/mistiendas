@@ -16,66 +16,67 @@ class BuscarApp extends State<buscar> {
     ///++++++++++++++++++++++++++++
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registro de búsqueda"),
+        backgroundColor: Colors.orange,
+        title: const Text("Resultados de búsqueda"),
       ),
-      body: Container(
-        child: Center(
-          child: StreamBuilder(
-            stream:
-                FirebaseFirestore.instance.collection("Tiendas").snapshots(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) return CircularProgressIndicator();
-              // print(widget.searchWord);
-              return ListView.builder(
-                itemCount: snapshot.data!.docs.length, // define las iteraciones
-                itemBuilder: (BuildContext context, int index) {
-                  if (snapshot.data!.docs[index].get("nombreTienda").toString().toUpperCase().contains(widget.searchWord.toUpperCase())) {
-                    return new Card(
-                      child: new Column(
-                        children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.all(15),
-                            child: Row(children: [
-                              Expanded(
-                                  child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      child: Text(snapshot.data!.docs[index]
-                                          .get("nombreTienda"))),
-                                  Text(
-                                    snapshot.data!.docs[index].get("descrip"),
-                                    style: TextStyle(
-                                      color: Colors.green[500],
-                                    ),
+      body: Center(
+        child: StreamBuilder(
+          stream:
+              FirebaseFirestore.instance.collection("Tiendas").snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) return const CircularProgressIndicator();
+            // print(widget.searchWord);
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length, // define las iteraciones
+              itemBuilder: (BuildContext context, int index) {
+                if (snapshot.data!.docs[index].get("nombreTienda").toString().toUpperCase().contains(widget.searchWord.toUpperCase())) {
+                  return Card(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.all(15),
+                          child: Row(children: [
+                            Expanded(
+                                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 10),
+                                    child: Text(snapshot.data!.docs[index]
+                                        .get("nombreTienda"))),
+                                Text(
+                                  snapshot.data!.docs[index].get("descrip"),
+                                  style: TextStyle(
+                                    color: Colors.green[500],
                                   ),
-                                ],
-                              )),
-                              Container(
-                                width: 80,
-                                height: 80,
-                                child: Image.asset('image/' +
-                                    snapshot.data!.docs[index].get("ruta")),
-                              ),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (_) => ShopOne(snapshot.data!.docs[index].id)));
-                                  }, child: Text('Entrar'))
-                            ]),
-                          )
-                        ],
-                      ),
-                    );
-                  }else {
-                    return new Card();
-                  }
-                },
-              );
-            },
-          ),
+                                ),
+                              ],
+                            )),
+                            SizedBox(
+                              width: 80,
+                              height: 80,
+                              child: Image.asset('image/' +
+                                  snapshot.data!.docs[index].get("ruta")),
+                            ),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(minimumSize: const Size(50, 40),
+                                    primary: Colors.orange),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (_) => ShopOne(snapshot.data!.docs[index].id)));
+                                }, child: const Text('Entrar'))
+                          ]),
+                        )
+                      ],
+                    ),
+                  );
+                }else {
+                  return Card();
+                }
+              },
+            );
+          },
         ),
       ),
     );

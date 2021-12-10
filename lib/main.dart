@@ -31,30 +31,24 @@ class HomeStart extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Bienvenidos grupo 06',
+      title: 'MisTiendas',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Home app grupo 06'),
-            actions: [
-              FloatingActionButton(
-                onPressed: () {
-                 // Navigator.push(context,MaterialPageRoute(builder: (_) => ItemRegister(tiendaId.toString())));
-                },
-                tooltip: 'Agregar producto',
-                child: const Icon(Icons.shopping_cart),
-                //child: Text("add"),
-                backgroundColor: Colors.green,
-              )
-            ]
+          backgroundColor: Colors.orange,
+          title: const Text('MisTiendas'),
+          automaticallyImplyLeading: false,
+            actions: const [
+
+            ],
         ),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Padding(
                 padding:
-                    EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
+                    const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
                 child: Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 150,
                     height: 150,
                     child: Image.asset('image/logo.png'),
@@ -63,59 +57,73 @@ class HomeStart extends State<Home> {
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 0),
+                    const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 0),
                 child: TextField(
                   controller: busqueda,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'búsqueda',
-                      hintText: 'Palabra clave de la búsqueda'),
+                      labelText: 'Búsqueda',
+                      hintText: 'Escriba aquí su búsqueda...'),
                 ),
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
+                    const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(minimumSize: Size(500, 50)),
+                  style: ElevatedButton.styleFrom(minimumSize: const Size(500, 50),
+                      primary: Colors.orange),
                   onPressed: () {
-                    print("presionado");
                     Navigator.push(
                         context, MaterialPageRoute(builder: (_) => buscar(busqueda.text)));
                   },
-                  child: Text('Buscar'),
+                  child: const Text('Buscar'),
+
                 ),
+
               ),
 
               Padding(
                 padding:
-                    EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
+                    const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(minimumSize: Size(500, 50)),
+                  style: ElevatedButton.styleFrom(minimumSize: const Size(500, 50),
+                      primary: Colors.orange),
                   onPressed: () {
 
 
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => GestionTiendas()));
                   },
-                  child: Text('Gestionar tienda'),
+                  child: const Text('Gestionar tienda'),
                 ),
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
+                    const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(minimumSize: Size(500, 50)),
+                  style: ElevatedButton.styleFrom(minimumSize: const Size(500, 50),
+                      primary: Colors.orange),
                   onPressed: () {
                     //print("presionado");
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => GestionUsuario()));
                   },
-                  child: Text('Gestión Usuario'),
+                  child: const Text('Gestión Usuario'),
                 ),
               ),
             ],
           ),
         ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              // Navigator.push(context,MaterialPageRoute(builder: (_) => ItemRegister(tiendaId.toString())));
+            },
+            tooltip: 'Agregar producto',
+            child: const Icon(Icons.shopping_cart),
+            //child: Text("add"),
+            backgroundColor: Colors.orange,
+          ),
+
       ),
     );
   }
